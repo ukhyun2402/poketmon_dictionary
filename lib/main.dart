@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poketmon_dictionary/model/poketmon.dart';
 import 'package:poketmon_dictionary/service/poketmon_service.dart';
 
 void main() {
@@ -14,18 +13,17 @@ class MainScreen extends ConsumerStatefulWidget {
 }
 
 class _MainScreenState extends ConsumerState<MainScreen> {
+  //TODO: make scroll controller to fetch data more
   @override
   Widget build(BuildContext context) {
-    final poketmonProviderRef = ref.watch(poketmonProvider);
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          poketmonProviderRef.when(
-              data: (data) => Text(data.data),
-              error: (e, s) => Text("Error $e"),
-              loading: () => const CircularProgressIndicator())
-        ],
-      ),
+    final poketmonsProviderRef = ref.watch(poketmonsProvider);
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return Row(
+          children: [Image.network(poketmonsProviderRef[index].imageUrl)],
+        );
+      },
+      itemCount: poketmonsProviderRef.length,
     );
   }
 

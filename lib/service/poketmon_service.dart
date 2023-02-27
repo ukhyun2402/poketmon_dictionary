@@ -1,15 +1,29 @@
-import 'dart:developer';
-
+import 'package:html/parser.dart' show parse;
 import 'package:dio/dio.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:poketmon_dictionary/model/poketmon.dart';
 
-final poketmonProvider = FutureProvider<Response>((ref) async {
+final List<Poketmon> _poketmons = [];
+
+final poketmonsProvider = StateProvider<List<Poketmon>>((ref) {
+  final poketmonResponse = ref.watch(poketmonProvider(1));
+  poketmonResponse.whenData((value) {
+    final parsedHtml = parse(value.data).querySelectorAll('li');
+    for (var html in parsedHtml) {
+      _poketmons.add(Poketmon.fromHtml(html));
+    }
+  });
+  return [..._poketmons];
+});
+
+final poketmonProvider =
+    FutureProvider.family<Response, int>((ref, page) async {
   final dio = ref.read(dioProvider);
-  const formData = {
+  var formData = {
     'mode': 'load_more',
     'word': '',
     'characters': '',
-    'pn': 1,
+    'pn': page,
     'area': '',
     'snumber': 1,
     'snumber2': 1008,
