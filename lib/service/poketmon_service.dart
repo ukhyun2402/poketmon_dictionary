@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:html/parser.dart' show parse;
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,8 +7,13 @@ import 'package:poketmon_dictionary/model/poketmon.dart';
 
 final List<Poketmon> _poketmons = [];
 
-final poketmonsProvider = StateProvider<List<Poketmon>>((ref) {
-  final poketmonResponse = ref.watch(poketmonProvider(1));
+final poketmonPaginationProvider = StateProvider<int>((ref) {
+  return 1;
+});
+
+final poketmonsProvider =
+    StateProvider.family<List<Poketmon>, int>((ref, pageIndex) {
+  final poketmonResponse = ref.watch(poketmonFetchProvider(pageIndex));
   poketmonResponse.whenData((value) {
     final parsedHtml = parse(value.data).querySelectorAll('li');
     for (var html in parsedHtml) {
@@ -16,7 +23,7 @@ final poketmonsProvider = StateProvider<List<Poketmon>>((ref) {
   return [..._poketmons];
 });
 
-final poketmonProvider =
+final poketmonFetchProvider =
     FutureProvider.family<Response, int>((ref, page) async {
   final dio = ref.read(dioProvider);
   var formData = {

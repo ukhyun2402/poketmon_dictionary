@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poketmon_dictionary/service/poketmon_service.dart';
+import 'components/poketmon_tile.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -13,21 +14,34 @@ class MainScreen extends ConsumerStatefulWidget {
 }
 
 class _MainScreenState extends ConsumerState<MainScreen> {
-  //TODO: make scroll controller to fetch data more
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    _controller = ScrollController()..addListener(meetEndOfScroll);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final poketmonsProviderRef = ref.watch(poketmonsProvider);
+    final poketmonPageIndex = ref.watch(poketmonPaginationProvider);
+    final poketmonsProviderRef =
+        ref.watch(poketmonsProvider(poketmonPageIndex));
     return ListView.builder(
+      controller: _controller,
       itemBuilder: (context, index) {
-        return Row(
-          children: [Image.network(poketmonsProviderRef[index].imageUrl)],
-        );
+        return PoketmonTile(poketmon: poketmonsProviderRef[index]);
       },
       itemCount: poketmonsProviderRef.length,
     );
   }
 
-  // List<Poketmon>
+  void meetEndOfScroll() {
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      ref.read(poketmonPaginationProvider.notifier).state++;
+    }
+  }
 }
 
 class MyApp extends ConsumerWidget {
@@ -36,6 +50,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'NotoSansKR'),
       home: Scaffold(
         appBar: AppBar(
           title: const Text("포켓몬 도감"),
