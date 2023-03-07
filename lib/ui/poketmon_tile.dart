@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:poketmon_dictionary/model/poketmon.dart';
 
 class PoketmonTile extends StatelessWidget {
-  const PoketmonTile({super.key});
+  final Poketmon poketmon;
+  const PoketmonTile({super.key, required this.poketmon});
 
   @override
   Widget build(BuildContext context) {
-    //TODO: make a tile to dispaly info about poketmon and image
     return Container(
-      child: Text("hello world"),
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.grey,
+      ),
+      child: AspectRatio(
+        aspectRatio: 2 / 1,
+        child: Stack(children: [
+          Image.network(
+            poketmon.imageUrl,
+            fit: BoxFit.fitHeight,
+          ),
+          Text("No.${poketmon.id.toString().padLeft(4, '0')} ${poketmon.name}")
+        ]),
+      ),
     );
   }
 }

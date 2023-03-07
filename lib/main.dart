@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poketmon_dictionary/service/poketmon_service.dart';
+import 'package:poketmon_dictionary/ui/poketmon_tile.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -19,8 +20,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     final poketmonsProviderRef = ref.watch(poketmonsProvider);
     return ListView.builder(
       itemBuilder: (context, index) {
-        return Row(
-          children: [Image.network(poketmonsProviderRef[index].imageUrl)],
+        // return Image.network(poketmonsProviderRef[index].imageUrl);
+        return PoketmonTile(
+          poketmon: poketmonsProviderRef[index],
         );
       },
       itemCount: poketmonsProviderRef.length,
