@@ -34,7 +34,6 @@ dependencies:
   riverpod_annotation: ^1.1.1
   dio: ^5.0.1
   html: ^0.15.1
-  flutter_svg: ^2.0.2
   lottie:
   go_router: ^6.2.0
 
