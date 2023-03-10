@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:html/dom.dart';
 
 class PokemonDetail {
-  late List<String> descriptions;
+  late Set<String> descriptions;
   late String? height;
   late String? category;
   late List<String> genders;
@@ -21,7 +21,7 @@ class PokemonDetail {
 
   PokemonDetail.fromHTML(Element el) {
     descriptions =
-        el.querySelectorAll('.para.descript').map((e) => e.innerHtml).toList();
+        el.querySelectorAll('.para.descript').map((e) => e.innerHtml).toSet();
     height = el.querySelectorAll('.col-4')[1].querySelector('p]')?.innerHtml;
     category = el.querySelectorAll('.col-4')[2].querySelector('p')?.innerHtml;
     genders = el

@@ -10,7 +10,7 @@ class PoketmonTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.go('/details'),
+      onTap: () => context.go('/details', extra: poketmon),
       child: AspectRatio(
         aspectRatio: 2 / 1,
         child: Container(

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:html/parser.dart' show parse;
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,7 +53,7 @@ final poketmonFetchProvider =
 });
 
 final pokemonDetailFetchProvider =
-    FutureProvider.autoDispose.family<Response, int>((ref, pokeId) async {
+    FutureProvider.autoDispose.family<PokemonDetail, int>((ref, pokeId) async {
   final option = BaseOptions(
       baseUrl: 'https://pokemonkorea.co.kr/pokedex/view/',
       headers: {
@@ -67,15 +65,8 @@ final pokemonDetailFetchProvider =
   final dio = ref.read(
     dioProvider(option),
   );
-  log('future provider');
   final resposne = await dio.get('/$pokeId');
-  return resposne;
-});
-
-final pokemonDetailProvider =
-    StateProvider.autoDispose.family<AsyncValue<dynamic>, int>((ref, pokeId) {
-  final pokemonDetailResponse = ref.watch(pokemonDetailFetchProvider(pokeId));
-  return pokemonDetailResponse;
+  return PokemonDetail.fromHTML(parse(resposne.data).body!);
 });
 
 final dioProvider = Provider.family<Dio, BaseOptions>((ref, option) {
