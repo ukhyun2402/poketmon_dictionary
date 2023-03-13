@@ -15,10 +15,19 @@
 
 #### 반응형 디자인 적용
 
-<div style="float:left">
-    <image src="snapshot/example.gif">
-</div>
-
-<div style="float:left">
-    <image src="snapshot/example1.gif">
-</div>
+<table>
+    <tr>
+        <td> 일반 스마트폰
+            </td>
+            <td> 태블릿(너비가 더 큰 플랫폼)
+        </td>
+    </tr>
+        <tr>
+        <td>
+        <img src='snapshot/example.gif' width=270 >
+        </td>
+        <td>
+        <img src='snapshot/example1.gif' width=540 >
+        </td>
+    </tr>
+</table>
