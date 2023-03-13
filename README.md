@@ -15,10 +15,10 @@
 
 #### 반응형 디자인 적용
 
-<div style="float:left">
+<div align="left">
     <image src="snapshot/example.gif">
 </div>
 
-<div style="float:left">
+<div align="right>
     <image src="snapshot/example1.gif">
 </div>
