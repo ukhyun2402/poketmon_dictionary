@@ -24,7 +24,7 @@
     </tr>
         <tr>
         <td>
-        <img src='snapshot/example.gif' width=270 >
+        <img src='snapshot/example.gif' width=270 loop=infinite>
         </td>
         <td>
         <img src='snapshot/example1.gif' width=540 >
