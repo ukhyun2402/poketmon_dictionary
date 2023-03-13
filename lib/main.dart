@@ -107,9 +107,8 @@ class MyApp extends ConsumerWidget {
                 log(appbarVisible.toString());
                 return SliverAppBar(
                   title: Text("HELLOWORLD"),
-                  floating: appbarVisible,
-                  snap: appbarVisible,
-                  // forceElevated: appbarVisible,
+                  floating: true,
+                  forceElevated: true,
                 );
               }))
             ];
