@@ -7,7 +7,7 @@ class Poketmon {
   late int pokemonId;
   late String imageUrl;
   late String? brief;
-  late List<PoketmonType> types;
+  List<PoketmonType> types = [PoketmonType.normal];
 
   Poketmon(
       {required this.name,
