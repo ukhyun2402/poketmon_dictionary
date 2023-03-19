@@ -1,4 +1,4 @@
-package com.example.poketmon_dictionary
+package com.wookhyun.poketmon_dictionary
 
 import io.flutter.embedding.android.FlutterActivity
 

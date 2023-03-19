@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:poketmon_dictionary/model/poketmon_type.dart';
 
 class PokemonDetailGridTile extends StatelessWidget {
-  const PokemonDetailGridTile(
+  PokemonDetailGridTile(
       {super.key,
       required this.title,
       required this.content,
       this.position,
-      required this.backgroundColor});
+      required this.backgroundColor,
+      this.imageSize = 0.06});
 
   final String title;
   final Color backgroundColor;
   final List<dynamic> content;
   final CircularRadiusPosition? position;
   final double circularValue = 16;
+  double imageSize = 0.06;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +67,7 @@ class PokemonDetailGridTile extends StatelessWidget {
                   if (title == '타입')
                     for (var c in content)
                       CircleAvatar(
-                        radius: MediaQuery.of(context).size.width * 0.06,
+                        radius: MediaQuery.of(context).size.width * imageSize,
                         backgroundColor: Color((c as PoketmonType).color),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -78,7 +80,7 @@ class PokemonDetailGridTile extends StatelessWidget {
                     for (var c in content)
                       if ((c as String).contains('icon-man'))
                         CircleAvatar(
-                          radius: MediaQuery.of(context).size.width * 0.06,
+                          radius: MediaQuery.of(context).size.width * imageSize,
                           backgroundColor: Colors.blue.withOpacity(.2),
                           child: const Icon(
                             Icons.male,
@@ -87,7 +89,7 @@ class PokemonDetailGridTile extends StatelessWidget {
                         )
                       else if (c.contains('icon-woman'))
                         CircleAvatar(
-                          radius: MediaQuery.of(context).size.width * 0.06,
+                          radius: MediaQuery.of(context).size.width * imageSize,
                           backgroundColor: Colors.pink.withOpacity(.2),
                           child: const Icon(
                             Icons.female,

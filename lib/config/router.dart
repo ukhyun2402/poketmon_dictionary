@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:poketmon_dictionary/model/poketmon.dart';
-import 'package:poketmon_dictionary/ui/screen/detail_screen.dart';
+import 'package:poketmon_dictionary/ui/screen/detail/detail_screen.dart';
 import 'package:poketmon_dictionary/ui/screen/main_screen.dart';
 
 final GoRouter router = GoRouter(

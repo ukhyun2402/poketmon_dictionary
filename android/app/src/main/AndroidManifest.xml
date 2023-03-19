@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.poketmon_dictionary">
+    package="com.wookhyun.poketmon_dictionary">
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:label="poketmon_dictionary"
+        android:label="포켓몬도감"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
