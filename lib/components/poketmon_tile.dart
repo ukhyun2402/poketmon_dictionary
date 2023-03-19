@@ -17,7 +17,9 @@ class PoketmonTile extends StatelessWidget {
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              color: Color(poketmon.types[0].backgroundColor),
+              color: poketmon.types.isEmpty
+                  ? Colors.white
+                  : Color(poketmon.types[0].backgroundColor),
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(0.8),

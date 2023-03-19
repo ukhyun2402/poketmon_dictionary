@@ -1,4 +1,5 @@
-# Poketmon_Dictionary(포켓몬도감)
+# pokemon_dictionary
+[스토어](https://play.google.com/store/apps/details?id=com.wookhyun.poketmon_dictionary&hl=en-KR)
 
 ![](snapshot/Frame%201.png)
 
@@ -24,10 +25,14 @@
     </tr>
         <tr>
         <td>
-        <img src='snapshot/example.gif' width=270 >
+        <img src='snapshot/example.gif' width=270 loop=infinite>
         </td>
         <td>
         <img src='snapshot/example1.gif' width=540 >
         </td>
     </tr>
 </table>
+
+
+#### 1.0.0+2 2023-03-19
+- 포켓몬 타입 null처리 수정

@@ -21,7 +21,9 @@ class DetailScreen extends ConsumerWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: Color(pokemon.types[0].backgroundColor),
+            backgroundColor: pokemon.types.isEmpty
+                ? Colors.grey[350]
+                : Color(pokemon.types[0].backgroundColor),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               color: Colors.black,
@@ -48,8 +50,10 @@ class DetailScreen extends ConsumerWidget {
                     pokemonDetail.maybeWhen(data: (detailState) {
                       return Container(
                         decoration: BoxDecoration(
-                            color: Color(pokemon.types[0].backgroundColor)
-                                .withOpacity(0.4),
+                            color: pokemon.types.isEmpty
+                                ? Colors.grey[350]
+                                : Color(pokemon.types[0].backgroundColor)
+                                    .withOpacity(.4),
                             borderRadius: BorderRadius.circular(16)),
                         child: Center(
                           child: Padding(
@@ -90,8 +94,9 @@ class DetailScreen extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 4, vertical: 0),
                                 child: Card(
-                                  color:
-                                      Color(pokemon.types[0].backgroundColor),
+                                  color: pokemon.types.isEmpty
+                                      ? Colors.grey[350]
+                                      : Color(pokemon.types[0].backgroundColor),
                                   child: Row(
                                     children: [
                                       Expanded(
@@ -127,8 +132,9 @@ class DetailScreen extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 4, vertical: 0),
                                 child: Card(
-                                  color:
-                                      Color(pokemon.types[0].backgroundColor),
+                                  color: pokemon.types.isEmpty
+                                      ? Colors.grey[350]
+                                      : Color(pokemon.types[0].backgroundColor),
                                   child: Row(
                                     children: [
                                       Expanded(
@@ -170,7 +176,9 @@ class PokemonDeatilImage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 0, bottom: 24, left: 16, right: 16),
       decoration: BoxDecoration(
-          color: Color(pokemon.types[0].backgroundColor),
+          color: pokemon.types.isEmpty
+              ? Colors.grey[350]
+              : Color(pokemon.types[0].backgroundColor),
           borderRadius:
               const BorderRadius.vertical(bottom: Radius.circular(36))),
       child: Align(
