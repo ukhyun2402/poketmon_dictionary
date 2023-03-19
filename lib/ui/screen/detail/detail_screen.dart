@@ -80,13 +80,9 @@ class DetailScreen extends ConsumerWidget {
                     return SliverList(
                       delegate: SliverChildListDelegate(
                         [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 8),
-                            child: DetailGridView(
-                              pokemon: pokemon,
-                              detailState: detailState,
-                            ),
+                          DetailGridView(
+                            pokemon: pokemon,
+                            detailState: detailState,
                           ),
                           for (String i in detailState.descriptions)
                             if (i.isNotEmpty)

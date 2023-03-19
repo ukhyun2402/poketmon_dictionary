@@ -17,6 +17,7 @@ class DetailGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: 3,

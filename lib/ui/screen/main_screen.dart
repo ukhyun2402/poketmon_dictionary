@@ -37,29 +37,31 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     final appbarVisible = ref.watch(scrollDirectionProvider);
     final atTop = ref.watch(scrollToUpperProvider);
     //==================state==================
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: PokedexAppbar(appbarVisible: appbarVisible, atTop: atTop),
-      body: LayoutBuilder(builder: (context, constraints) {
-        if (constraints.maxWidth < 600) {
-          return ListView.builder(
-            controller: _controller,
-            itemBuilder: (context, index) {
-              return PoketmonTile(poketmon: poketmonsProviderRef[index]);
-            },
-            itemCount: poketmonsProviderRef.length,
-          );
-        } else {
-          return GridView.builder(
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: PokedexAppbar(appbarVisible: appbarVisible, atTop: atTop),
+        body: LayoutBuilder(builder: (context, constraints) {
+          if (constraints.maxWidth < 600) {
+            return ListView.builder(
               controller: _controller,
-              itemCount: poketmonsProviderRef.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, childAspectRatio: 2 / 1),
               itemBuilder: (context, index) {
                 return PoketmonTile(poketmon: poketmonsProviderRef[index]);
-              });
-        }
-      }),
+              },
+              itemCount: poketmonsProviderRef.length,
+            );
+          } else {
+            return GridView.builder(
+                controller: _controller,
+                itemCount: poketmonsProviderRef.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, childAspectRatio: 2 / 1),
+                itemBuilder: (context, index) {
+                  return PoketmonTile(poketmon: poketmonsProviderRef[index]);
+                });
+          }
+        }),
+      ),
     );
   }
 
