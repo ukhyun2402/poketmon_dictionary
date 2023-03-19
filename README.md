@@ -1,4 +1,5 @@
 # pokemon_dictionary
+[스토어](https://play.google.com/store/apps/details?id=com.wookhyun.poketmon_dictionary&hl=en-KR)
 
 <img style="float: right; width:250px; margin-left:24px" src="snapshot/snapshot_20230303.gif">
 pokemon에 대한 간단한 정보를 Flutter 프레임워크와 riverpod을 이용해 볼 수 있는 앱입니다. 상태관리 라이브러리인 riverpod을 이용해 UI와 상태값에 대한 로직을 분리한 MVVM패턴을 구현하고자 노력했습니다.
@@ -15,3 +16,5 @@ pokemon에 대한 간단한 정보를 Flutter 프레임워크와 riverpod을 이
 #### 2023-03-10
 <img style="float: right; width:250px; margin-left:24px" src="snapshot/snapshot_20230310.gif">
 
+#### 2023-03-19
+- 포켓몬 타입 null처리 수정
