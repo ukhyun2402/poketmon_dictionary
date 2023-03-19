@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:html/dom.dart';
 
 class PokemonDetail {

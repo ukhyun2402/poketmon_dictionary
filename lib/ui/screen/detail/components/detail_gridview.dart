@@ -16,7 +16,11 @@ class DetailGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor = pokemon.types.isEmpty
+        ? const Color.fromARGB(255, 220, 220, 220)
+        : Color(pokemon.types[0].backgroundColor);
     return GridView(
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: 3,
@@ -28,37 +32,37 @@ class DetailGridView extends StatelessWidget {
           title: "타입",
           content: pokemon.types,
           position: CircularRadiusPosition.topLeft,
-          backgroundColor: Color(pokemon.types[0].backgroundColor),
+          backgroundColor: backgroundColor,
           imageSize: imageSize,
         ),
         PokemonDetailGridTile(
           title: "키",
           content: [detailState.height],
-          backgroundColor: Color(pokemon.types[0].backgroundColor),
+          backgroundColor: backgroundColor,
         ),
         PokemonDetailGridTile(
           title: "분류",
           content: [detailState.category],
           position: CircularRadiusPosition.topRight,
-          backgroundColor: Color(pokemon.types[0].backgroundColor),
+          backgroundColor: backgroundColor,
         ),
         PokemonDetailGridTile(
           title: "성별",
           content: detailState.genders,
           position: CircularRadiusPosition.bottomLeft,
-          backgroundColor: Color(pokemon.types[0].backgroundColor),
+          backgroundColor: backgroundColor,
           imageSize: imageSize,
         ),
         PokemonDetailGridTile(
           title: "몸무게",
           content: [detailState.weight],
-          backgroundColor: Color(pokemon.types[0].backgroundColor),
+          backgroundColor: backgroundColor,
         ),
         PokemonDetailGridTile(
           title: "특성",
           content: [detailState.character],
           position: CircularRadiusPosition.bottomRight,
-          backgroundColor: Color(pokemon.types[0].backgroundColor),
+          backgroundColor: backgroundColor,
         ),
       ],
     );
