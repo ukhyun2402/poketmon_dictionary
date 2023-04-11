@@ -7,7 +7,7 @@ import 'package:poketmon_dictionary/model/poketmon.dart';
 final List<Poketmon> _poketmons = [];
 
 final poketmonPaginationProvider = StateProvider<int>((ref) {
-  return 38;
+  return 1;
 });
 
 final poketmonsProvider =
