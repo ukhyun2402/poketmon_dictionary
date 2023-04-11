@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hive/hive.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:dio/dio.dart';
@@ -7,10 +9,11 @@ import 'package:poketmon_dictionary/model/pokemon_detail.dart';
 import 'package:poketmon_dictionary/model/pokemon.dart';
 
 var pokemonBox = Hive.box<Pokemon>(POKEMON_BOX);
+var settingBox = Hive.box<int>(SETTINGS);
 final List<Pokemon> _poketmons = pokemonBox.values.toList();
 
 final poketmonPaginationProvider = StateProvider<int>((ref) {
-  return 1;
+  return settingBox.get('page', defaultValue: 1)!;
 });
 
 final poketmonsProvider =
@@ -23,6 +26,11 @@ final poketmonsProvider =
       pokemonBox.put(pokemon.id, pokemon);
       _poketmons.add(pokemon);
     }
+    // log(pokemonBox.length.toString() +
+    //     "\npage: " +
+    //     ref.read(poketmonPaginationProvider.notifier).state.toString() +
+    //     "\n last Pokemon ${_poketmons.last.toString()}");
+    // log(pokemonBox.values.cast().toList().toString());
   });
   return [..._poketmons];
 });

@@ -2,9 +2,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:poketmon_dictionary/components/poketmon_tile.dart';
+import 'package:poketmon_dictionary/config/constant.dart';
 import 'package:poketmon_dictionary/service/poketmon_service.dart';
 import 'package:poketmon_dictionary/service/ui_service.dart';
 import 'package:poketmon_dictionary/ui/pokedex_appbar.dart';
+import 'package:hive/hive.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -67,7 +69,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     final srcollProvider = ref.read(scrollDirectionProvider.notifier);
     if (_controller.offset >= _controller.position.maxScrollExtent &&
         !_controller.position.outOfRange) {
-      ref.read(poketmonPaginationProvider.notifier).state++;
+      Hive.box<int>(SETTINGS)
+          .put('page', ++ref.read(poketmonPaginationProvider.notifier).state);
     }
 
     if (_controller.position.pixels == 0) {

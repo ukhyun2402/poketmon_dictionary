@@ -41,6 +41,8 @@ class PoketmonTile extends StatelessWidget {
                   // margin between circle container and pokemon image
                   margin: const EdgeInsets.all(8),
                   child: CachedNetworkImage(
+                    // fadeInCurve: None,
+                    fadeOutDuration: Duration(milliseconds: 20),
                     placeholder: (context, url) => Padding(
                       padding: const EdgeInsets.all(36.0),
                       child:

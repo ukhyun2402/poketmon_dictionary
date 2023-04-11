@@ -73,4 +73,9 @@ class Pokemon {
     }).toList();
     brief = li.querySelector('.bx-txt > p')?.text ?? '';
   }
+
+  @override
+  String toString() {
+    return name;
+  }
 }
