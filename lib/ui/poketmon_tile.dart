@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:poketmon_dictionary/model/poketmon.dart';
+import 'package:poketmon_dictionary/model/pokemon.dart';
 
 class PoketmonTile extends StatelessWidget {
-  final Poketmon poketmon;
+  final Pokemon poketmon;
   const PoketmonTile({super.key, required this.poketmon});
 
   @override

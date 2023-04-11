@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import 'package:poketmon_dictionary/model/poketmon.dart';
+import 'package:poketmon_dictionary/model/pokemon.dart';
 
 class PoketmonTile extends StatelessWidget {
-  final Poketmon poketmon;
+  final Pokemon poketmon;
   const PoketmonTile({super.key, required this.poketmon});
 
   @override
@@ -39,21 +40,31 @@ class PoketmonTile extends StatelessWidget {
                 child: Container(
                   // margin between circle container and pokemon image
                   margin: const EdgeInsets.all(8),
-                  child: Image.network(
-                    poketmon.imageUrl,
-                    fit: BoxFit.fitHeight,
-                    loadingBuilder: (context, child, loadingProgess) {
-                      if (loadingProgess == null) {
-                        return child;
-                      }
-                      return Padding(
-                        padding: const EdgeInsets.all(36.0),
-                        child: Lottie.asset(
-                          'assets/lotties/pokeball_loading.json',
-                        ),
-                      );
-                    },
+                  child: CachedNetworkImage(
+                    // fadeInCurve: None,
+                    fadeOutDuration: Duration(milliseconds: 20),
+                    placeholder: (context, url) => Padding(
+                      padding: const EdgeInsets.all(36.0),
+                      child:
+                          Lottie.asset('assets/lotties/pokeball_loading.json'),
+                    ),
+                    imageUrl: poketmon.imageUrl,
                   ),
+                  // child: Image.network(
+                  //   poketmon.imageUrl,
+                  //   fit: BoxFit.fitHeight,
+                  //   loadingBuilder: (context, child, loadingProgess) {
+                  //     if (loadingProgess == null) {
+                  //       return child;
+                  //     }
+                  // return Padding(
+                  //   padding: const EdgeInsets.all(36.0),
+                  //   child: Lottie.asset(
+                  //     'assets/lotties/pokeball_loading.json',
+                  //   ),
+                  // );
+                  // },
+                  // ),
                 ),
               ),
               const Spacer(

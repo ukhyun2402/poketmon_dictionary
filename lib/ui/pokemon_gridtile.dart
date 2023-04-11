@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:poketmon_dictionary/model/poketmon_type.dart';
+import 'package:poketmon_dictionary/model/pokemon_type.dart';
 
 class PokemonDetailGridTile extends StatelessWidget {
   PokemonDetailGridTile(
@@ -68,7 +68,7 @@ class PokemonDetailGridTile extends StatelessWidget {
                     for (var c in content)
                       CircleAvatar(
                         radius: MediaQuery.of(context).size.width * imageSize,
-                        backgroundColor: Color((c as PoketmonType).color),
+                        backgroundColor: Color((c as PokemonType).color),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(

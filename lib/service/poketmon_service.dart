@@ -1,23 +1,36 @@
+import 'dart:developer';
+
+import 'package:hive/hive.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:poketmon_dictionary/config/constant.dart';
 import 'package:poketmon_dictionary/model/pokemon_detail.dart';
-import 'package:poketmon_dictionary/model/poketmon.dart';
+import 'package:poketmon_dictionary/model/pokemon.dart';
 
-final List<Poketmon> _poketmons = [];
+var pokemonBox = Hive.box<Pokemon>(POKEMON_BOX);
+var settingBox = Hive.box<int>(SETTINGS);
+final List<Pokemon> _poketmons = pokemonBox.values.toList();
 
 final poketmonPaginationProvider = StateProvider<int>((ref) {
-  return 1;
+  return settingBox.get('page', defaultValue: 1)!;
 });
 
 final poketmonsProvider =
-    StateProvider.family<List<Poketmon>, int>((ref, pageIndex) {
+    StateProvider.family<List<Pokemon>, int>((ref, pageIndex) {
   final poketmonResponse = ref.watch(poketmonFetchProvider(pageIndex));
   poketmonResponse.whenData((value) {
     final parsedHtml = parse(value.data).querySelectorAll('li');
     for (var html in parsedHtml) {
-      _poketmons.add(Poketmon.fromHtml(html));
+      var pokemon = Pokemon.fromHtml(html);
+      pokemonBox.put(pokemon.id, pokemon);
+      _poketmons.add(pokemon);
     }
+    // log(pokemonBox.length.toString() +
+    //     "\npage: " +
+    //     ref.read(poketmonPaginationProvider.notifier).state.toString() +
+    //     "\n last Pokemon ${_poketmons.last.toString()}");
+    // log(pokemonBox.values.cast().toList().toString());
   });
   return [..._poketmons];
 });
