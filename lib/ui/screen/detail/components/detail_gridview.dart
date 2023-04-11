@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poketmon_dictionary/model/pokemon_detail.dart';
-import 'package:poketmon_dictionary/model/poketmon.dart';
+import 'package:poketmon_dictionary/model/pokemon.dart';
 import 'package:poketmon_dictionary/ui/pokemon_gridtile.dart';
 
 class DetailGridView extends StatelessWidget {
@@ -10,7 +10,7 @@ class DetailGridView extends StatelessWidget {
       required this.detailState,
       this.imageSize = 0.06});
 
-  final Poketmon pokemon;
+  final Pokemon pokemon;
   final PokemonDetail detailState;
   double imageSize;
 

@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:poketmon_dictionary/model/poketmon.dart';
+import 'package:poketmon_dictionary/model/pokemon.dart';
 import 'package:poketmon_dictionary/ui/screen/detail/detail_screen.dart';
 import 'package:poketmon_dictionary/ui/screen/main_screen.dart';
 
@@ -12,7 +12,7 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: 'details',
           builder: (context, state) => DetailScreen(
-            pokemon: state.extra as Poketmon,
+            pokemon: state.extra as Pokemon,
           ),
         )
       ],

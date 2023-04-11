@@ -1,11 +1,21 @@
 import 'package:html/dom.dart';
+import 'package:hive/hive.dart';
 
+part 'pokemon_detail.g.dart';
+
+@HiveType(typeId: 1)
 class PokemonDetail {
-  late Set<String> descriptions;
+  @HiveField(0)
+  late List<String> descriptions;
+  @HiveField(1)
   late String? height;
+  @HiveField(2)
   late String? category;
+  @HiveField(3)
   late List<String> genders;
+  @HiveField(4)
   late String? weight;
+  @HiveField(5)
   late String? character;
 
   PokemonDetail({
@@ -18,8 +28,11 @@ class PokemonDetail {
   });
 
   PokemonDetail.fromHTML(Element el) {
-    descriptions =
-        el.querySelectorAll('.para.descript').map((e) => e.innerHtml).toSet();
+    descriptions = el
+        .querySelectorAll('.para.descript')
+        .map((e) => e.innerHtml)
+        .toSet()
+        .toList();
     height = el.querySelectorAll('.col-4')[1].querySelector('p]')?.innerHtml;
     category = el.querySelectorAll('.col-4')[2].querySelector('p')?.innerHtml;
     genders = el

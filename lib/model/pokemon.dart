@@ -1,21 +1,31 @@
 import 'package:html/dom.dart';
-import 'package:poketmon_dictionary/model/poketmon_type.dart';
+import 'package:poketmon_dictionary/model/pokemon_type.dart';
+import 'package:hive/hive.dart';
 
-class Poketmon {
+part 'poketmon.g.dart';
+
+@HiveType(typeId: 0)
+class Pokemon {
+  @HiveField(0)
   late String name;
+  @HiveField(1)
   late int id;
+  @HiveField(2)
   late int pokemonId;
+  @HiveField(3)
   late String imageUrl;
+  @HiveField(4)
   late String? brief;
-  late List<PoketmonType> types;
+  @HiveField(5)
+  late List<PokemonType> types;
 
-  Poketmon(
+  Pokemon(
       {required this.name,
       required this.id,
       required this.imageUrl,
       required this.types});
 
-  Poketmon.fromHtml(Element li) {
+  Pokemon.fromHtml(Element li) {
     imageUrl = li.querySelector('img')?.attributes['src'] ?? '';
     id = int.parse(li.id.split('_')[1]);
     pokemonId = int.parse(
@@ -24,41 +34,41 @@ class Poketmon {
     types = li.querySelectorAll('.bx-txt span').map((e) {
       switch (e.text) {
         case '불꽃':
-          return PoketmonType.fire;
+          return PokemonType.fire;
         case '물':
-          return PoketmonType.water;
+          return PokemonType.water;
         case '전기':
-          return PoketmonType.electric;
+          return PokemonType.electric;
         case '풀':
-          return PoketmonType.grass;
+          return PokemonType.grass;
         case '얼음':
-          return PoketmonType.ice;
+          return PokemonType.ice;
         case '격투':
-          return PoketmonType.fighting;
+          return PokemonType.fighting;
         case '독':
-          return PoketmonType.poison;
+          return PokemonType.poison;
         case '땅':
-          return PoketmonType.ground;
+          return PokemonType.ground;
         case '비행':
-          return PoketmonType.flying;
+          return PokemonType.flying;
         case '에스퍼':
-          return PoketmonType.psychic;
+          return PokemonType.psychic;
         case '벌레':
-          return PoketmonType.bug;
+          return PokemonType.bug;
         case '바위':
-          return PoketmonType.rock;
+          return PokemonType.rock;
         case '고스트':
-          return PoketmonType.ghost;
+          return PokemonType.ghost;
         case '드래곤':
-          return PoketmonType.dragon;
+          return PokemonType.dragon;
         case '악':
-          return PoketmonType.dark;
+          return PokemonType.dark;
         case '강철':
-          return PoketmonType.steel;
+          return PokemonType.steel;
         case '페어리':
-          return PoketmonType.fairy;
+          return PokemonType.fairy;
         default:
-          return PoketmonType.normal;
+          return PokemonType.normal;
       }
     }).toList();
     brief = li.querySelector('.bx-txt > p')?.text ?? '';

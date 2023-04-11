@@ -5,13 +5,13 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import 'package:poketmon_dictionary/model/poketmon.dart';
+import 'package:poketmon_dictionary/model/pokemon.dart';
 import 'package:poketmon_dictionary/service/poketmon_service.dart';
 import 'package:poketmon_dictionary/ui/screen/detail/components/detail_gridview.dart';
 
 class DetailScreen extends ConsumerWidget {
   const DetailScreen({super.key, required this.pokemon});
-  final Poketmon pokemon;
+  final Pokemon pokemon;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -173,7 +173,7 @@ class PokemonDeatilImage extends StatelessWidget {
     required this.pokemon,
   });
 
-  final Poketmon pokemon;
+  final Pokemon pokemon;
 
   @override
   Widget build(BuildContext context) {
