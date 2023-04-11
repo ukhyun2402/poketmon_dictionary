@@ -1,4 +1,5 @@
 # pokemon_dictionary
+
 [스토어](https://play.google.com/store/apps/details?id=com.wookhyun.poketmon_dictionary&hl=en-KR)
 
 ![](snapshot/Frame%201.png)
@@ -33,12 +34,14 @@
     </tr>
 </table>
 
-
 #### 1.0.0+2 2023-03-19
+
 - 포켓몬 타입 null처리 수정
 
-
 #### 1.0.1+3 2023-04-11
+
 - local DB Hive 추가
 - cache image widget 추가
-- 
+- search app bar 및 korean regex 적용
+
+<img src='snapshot/20230412.gif' width=270>

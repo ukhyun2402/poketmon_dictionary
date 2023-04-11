@@ -8,34 +8,42 @@ import 'package:poketmon_dictionary/config/constant.dart';
 import 'package:poketmon_dictionary/model/pokemon_detail.dart';
 import 'package:poketmon_dictionary/model/pokemon.dart';
 
+// BOXES for store pokemon data to local
 var pokemonBox = Hive.box<Pokemon>(POKEMON_BOX);
 var settingBox = Hive.box<int>(SETTINGS);
-final List<Pokemon> _poketmons = pokemonBox.values.toList();
 
-final poketmonPaginationProvider = StateProvider<int>((ref) {
+// load stored data from box when empty to be a empty list
+final List<Pokemon> _pokemons = pokemonBox.values.toList();
+
+final pokemonPaginationProvider = StateProvider<int>((ref) {
   return settingBox.get('page', defaultValue: 1)!;
 });
 
-final poketmonsProvider =
+//provider to search text
+final searchTextProvider = StateProvider<String>((ref) {
+  return "";
+});
+
+//provider to check end of request
+final isLoadingPovider = StateProvider<bool>((ref) => false);
+
+// provider to fetch data and store data
+final pokemonsProvider =
     StateProvider.family<List<Pokemon>, int>((ref, pageIndex) {
-  final poketmonResponse = ref.watch(poketmonFetchProvider(pageIndex));
-  poketmonResponse.whenData((value) {
+  final pokemonResponse = ref.watch(pokemonFetchProvider(pageIndex));
+  pokemonResponse.whenData((value) {
     final parsedHtml = parse(value.data).querySelectorAll('li');
     for (var html in parsedHtml) {
       var pokemon = Pokemon.fromHtml(html);
       pokemonBox.put(pokemon.id, pokemon);
-      _poketmons.add(pokemon);
+      _pokemons.add(pokemon);
     }
-    // log(pokemonBox.length.toString() +
-    //     "\npage: " +
-    //     ref.read(poketmonPaginationProvider.notifier).state.toString() +
-    //     "\n last Pokemon ${_poketmons.last.toString()}");
-    // log(pokemonBox.values.cast().toList().toString());
   });
-  return [..._poketmons];
+  return [..._pokemons];
 });
 
-final poketmonFetchProvider =
+// provider to request http
+final pokemonFetchProvider =
     FutureProvider.family<Response, int>((ref, page) async {
   final option = BaseOptions(
     baseUrl: 'https://pokemonkorea.co.kr/ajax/pokedex',
@@ -62,9 +70,11 @@ final poketmonFetchProvider =
     'typestr': '',
   };
   final response = await dio.post('', data: FormData.fromMap(formData));
+  ref.read(isLoadingPovider.notifier).state = false;
   return response;
 });
 
+//provider to fetch pokemon detail data
 final pokemonDetailFetchProvider =
     FutureProvider.autoDispose.family<PokemonDetail, int>((ref, pokeId) async {
   final option = BaseOptions(
@@ -75,6 +85,7 @@ final pokemonDetailFetchProvider =
         'Referer':
             'https://pokemonkorea.co.kr/pokedex/view/1?word=&characters=&area=&snumber=1&snumber2=1008&typetextcs=&sortselval=number%20asc,number_count%20asc',
       });
+
   final dio = ref.read(
     dioProvider(option),
   );
@@ -82,6 +93,7 @@ final pokemonDetailFetchProvider =
   return PokemonDetail.fromHTML(parse(resposne.data).body!);
 });
 
+// provider dio
 final dioProvider = Provider.family<Dio, BaseOptions>((ref, option) {
   return Dio(option);
 });
